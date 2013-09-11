@@ -72,14 +72,22 @@ def serve(port, public_html, cgibin):
         if(location == '/'):
             location = '/index.hmtl'
 
+        requested_type = ''
+        requested_type_re = re.search('(\.[^.]*)$', location) 
+        if requested_type_re != None:
+            requested_type = requested_type_re.group(0)
+
         # logging
         print('request for : ' + location + ' by: ', addr)
 
         # try and retrieve file requested
         content = None
         try:
-            with open(public_html+location, 'r') as content_file:
-                content = content_file.read()
+            if requested_type == '.png':
+                content = open(public_html+location, 'rb')
+            else:
+                content = open(public_html+location, 'r')
+            content = content.read()
         except IOError:
             print('File not found')
 
@@ -91,9 +99,7 @@ def serve(port, public_html, cgibin):
             continue
         # else return requested file in html format
         else:
-            requested_type_re = re.search('(\.[^.]*)$', location) 
-            if requested_type_re != None:
-                requested_type = requested_type_re.group(0)
+            
 
             # Set response headers for different file types
             response_headers = None
