@@ -45,6 +45,7 @@ def serve(port, public_html, cgibin):
         if not request_regex:
             response_status = '501'
             conn.send('%s %s' % (response_proto, response_status))
+            conn.send('\n')
             conn.close()
             continue
 
@@ -90,20 +91,35 @@ def serve(port, public_html, cgibin):
             continue
         # else return requested file in html format
         else:
-            response_headers = {
-                'Content-Type': 'text/html; encoding=utf8',
-                'Content-Length': len(content),
-                'Connection': 'close',
-            }
+            requested_type_re = re.search('(\.[^.]*)$', location) 
+            if requested_type_re != None:
+                requested_type = requested_type_re.group(0)
+
+            # Set response headers for different file types
+            response_headers = None
+            if requested_type == '.html':
+                response_headers = {
+                    'Content-Type': 'text/html; encoding=utf8',
+                    'Content-Length': len(content),
+                    'Connection': 'close',
+                }
+                pass
+            else:
+                # response_headers_raw = 'HTTP/1.0 304 NOT MODIFIED'
+                response_headers = {
+                    'Content-Type': 'image/x-png',
+                    'Content-Length': len(content),
+                    'Connection': 'close'
+                }
 
             response_headers_raw = ''.join('%s: %s\n' % (k, v) for k, v in \
                 response_headers.iteritems())
 
-
             conn.send('%s %s' % (response_proto, response_status))
+            conn.send('\n')
             conn.send(response_headers_raw)
             conn.send('\n')
-            conn.send(content)
+            conn.sendall(content)
             conn.close()
             continue
             
