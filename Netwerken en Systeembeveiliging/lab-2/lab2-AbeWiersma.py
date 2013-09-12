@@ -8,8 +8,9 @@
 
 import socket, os, sys, argparse, signal, sys, re
 
+# handle SIGINT for smooth exit
 def signal_handler(signal, frame):
-    print 'You pressed Ctrl+C!'
+    print 'Server Closing.'
     server.close()
     sys.exit()
 
@@ -28,11 +29,7 @@ def serve(port, public_html, cgibin):
     server.bind((HOST,PORT))
     server.listen(1)
 
-    # handle SIGINT for smooth exit
     while 1:
-        # communication protocol
-        response_proto = 'HTTP/1.1'
-        response_status = '200'
 
         # connection to client and address to client
         conn, addr = server.accept()
@@ -40,8 +37,12 @@ def serve(port, public_html, cgibin):
         if not data:
             continue
 
+        # communication protocol
+        response_proto = ''
+        response_status = ''
+
         # Use regex to find the type of request and location
-        request_regex = re.search('([A-Z]{3,7}) (/.*)(?= )', data)
+        request_regex = re.search('([A-Z]{3,7}) (/.*)(?= ) (.*)', data)
         if not request_regex:
             response_status = '501'
             conn.send('%s %s' % (response_proto, response_status))
@@ -71,6 +72,15 @@ def serve(port, public_html, cgibin):
         location = request_regex.group(2)
         if(location == '/'):
             location = '/index.hmtl'
+
+        # set/check response_proto
+        if not request_regex.group(3):
+            response_proto = request_regex.group(3)
+            if response_proto != 'HTTP/1.1' or response_proto != 'CGI/1.1':
+                response_status = '501'
+                conn.send('%s %s' % (response_proto, response_status))
+                conn.close()
+                continue
 
         requested_type = ''
         requested_type_re = re.search('(\.[^.]*)$', location) 
@@ -104,6 +114,7 @@ def serve(port, public_html, cgibin):
             # Set response headers for different file types
             response_headers = None
             if requested_type == '.html':
+                response_status = '200'
                 response_headers = {
                     'Content-Type': 'text/html; encoding=utf8',
                     'Content-Length': len(content),
@@ -111,7 +122,7 @@ def serve(port, public_html, cgibin):
                 }
                 pass
             else:
-                # response_headers_raw = 'HTTP/1.0 304 NOT MODIFIED'
+                response_status = '304'
                 response_headers = {
                     'Content-Type': 'image/x-png',
                     'Content-Length': len(content),
