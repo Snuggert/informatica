@@ -1,0 +1,10 @@
+1: De lezer informeren over hoe een atrikel te lezen.
+2: Hoe lees je een artikel voor maximale opname.
+3: Lees eerst scannend dan grondig en dan nog een keer om het echt tot je door te laten dringen.
+4: Het echt tot je laten doordringen van een artikel vereist minimaal 3 passes
+5: Opname van artikelen:
+	scannend, grondig en een laatste keer om het echt tot je door te laten dringen.
+6: Dat je kan lezen.
+7a: Dat je veel tijd kwijt bent aan het lezen van een artikel als je de gedachtegang volgt.
+7b: Dat je een artikel één keer kan lezen het alsnog goed opneemt en je minder tijd kwijt bent.
+8: Kijk eerst of je een artikel wil lezen tijdens het scannen.
