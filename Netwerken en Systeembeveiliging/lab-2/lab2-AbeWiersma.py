@@ -8,11 +8,63 @@
 
 import socket, os, sys, argparse, signal, sys, re
 
+responses = {200: 'OK', 404: 'Not Found', 501: 'Not Implemented'}
+
 # handle SIGINT for smooth exit
 def signal_handler(signal, frame):
-    print 'Server Closing.'
+    print '\nServer Closing.'
     server.close()
     sys.exit()
+
+def get_file_type(location):
+    try:
+        return re.search('\.([^.]+)$', location).group(0)
+    except NameError as e:
+        return ''
+    except AttributeError as e:
+        return ''
+
+def build_response_headers(filetype, content):
+    if filetype == 'html':
+        return '''Content-Type: text/html; encoding=utf8
+                    Content-Length: %d
+                    Connection': close''' % len(content)
+    elif filetype == 'png':
+            return'''Content-Type: image/x-png
+                        Content-Length': %d
+                        Connection': 'close''' % len(content)
+    else:
+        return ''
+
+def return_to_conn(conn, response, location='', content=''):
+    if response == 404:
+        content = '''
+            <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+            <html>
+                <head>
+                    <title>404 Not Found</title>
+                </head>
+                <body>
+                    <h1>Not Found</h1>
+                    <p>The requested URL %s was not found on this server.</p>
+                    <hr>
+                    <address>Abeche Server</address>
+                </body>
+            </html>''' % (location)
+
+    # response protocol
+    response_proto = 'HTTP/1.1'
+    response_status = str(response) + ' ' + responses[response]
+    conn.send('%s %s' % (response_proto, response_status))
+    conn.send('\n')
+
+    filetype = get_file_type(location)
+
+    # send response headers
+    conn.send(build_response_headers(filetype, content))
+    conn.send('\n')
+    conn.sendall(content)
+    conn.close()
 
 def serve(port, public_html, cgibin):
     signal.signal(signal.SIGINT, signal_handler)
@@ -29,6 +81,7 @@ def serve(port, public_html, cgibin):
     server.bind((HOST,PORT))
     server.listen(1)
 
+
     while 1:
 
         # connection to client and address to client
@@ -37,32 +90,20 @@ def serve(port, public_html, cgibin):
         if not data:
             continue
 
-        # communication protocol
-        response_proto = ''
-        response_status = ''
-
         # Use regex to find the type of request and location
         request_regex = re.search('([A-Z]{3,7}) (/.*)(?= ) (.*)', data)
         if not request_regex:
-            response_status = '501'
-            conn.send('%s %s' % (response_proto, response_status))
-            conn.send('\n')
-            conn.close()
+            return_to_conn(conn, 501)
             continue
 
         if not request_regex.group(1):
-            response_status = '501'
-            conn.send('%s %s' % (response_proto, response_status))
-            conn.close()
+            return_to_conn(conn, 501)
             continue
 
         # set request type.
         request = request_regex.group(1)
-        
         if request != 'GET':
-            response_status = '501'
-            conn.send('%s %s' % (response_proto, response_status))
-            conn.close()
+            return_to_conn(conn, 501)
             continue
 
         if not request_regex.group(2):
@@ -70,75 +111,39 @@ def serve(port, public_html, cgibin):
 
         # set location.
         location = request_regex.group(2)
+        location_regex = re.search('/cgi-bin(/.*)?', location)
+        if location_regex:
+            print('yes, cgi-bin')
         if(location == '/'):
-            location = '/index.hmtl'
+            location = '/index.html'
 
-        # set/check response_proto
+        # set/check response_proto.
         if not request_regex.group(3):
-            response_proto = request_regex.group(3)
-            if response_proto != 'HTTP/1.1' or response_proto != 'CGI/1.1':
-                response_status = '501'
+            proto = request_regex.group(3)
+            if proto != 'HTTP/1.1' or proto != 'CGI/1.1':
+                response_status = '501 ' + responses[501]
                 conn.send('%s %s' % (response_proto, response_status))
                 conn.close()
                 continue
 
-        requested_type = ''
-        requested_type_re = re.search('(\.[^.]*)$', location) 
-        if requested_type_re != None:
-            requested_type = requested_type_re.group(0)
-
-        # logging
+        # logging.
         print('request for : ' + location + ' by: ', addr)
 
-        # try and retrieve file requested
+        # try and retrieve file requested.
         content = None
         try:
-            if requested_type == '.png':
-                content = open(public_html+location, 'rb')
-            else:
-                content = open(public_html+location, 'r')
+            content = open(public_html+location, 'rb')
             content = content.read()
         except IOError:
             print('File not found')
 
-        # if server can't find requested file in public_html send 404
+        # if server can't find requested file in public_html send 404.
         if not content:
-            response_status = '404'
-            conn.send('%s %s' % (response_proto, response_status))
-            conn.close()
-            continue
+            return_to_conn(conn, 404, location)
+
         # else return requested file in html format
         else:
-            
-
-            # Set response headers for different file types
-            response_headers = None
-            if requested_type == '.html':
-                response_status = '200'
-                response_headers = {
-                    'Content-Type': 'text/html; encoding=utf8',
-                    'Content-Length': len(content),
-                    'Connection': 'close',
-                }
-                pass
-            else:
-                response_status = '304'
-                response_headers = {
-                    'Content-Type': 'image/x-png',
-                    'Content-Length': len(content),
-                    'Connection': 'close'
-                }
-
-            response_headers_raw = ''.join('%s: %s\n' % (k, v) for k, v in \
-                response_headers.iteritems())
-
-            conn.send('%s %s' % (response_proto, response_status))
-            conn.send('\n')
-            conn.send(response_headers_raw)
-            conn.send('\n')
-            conn.sendall(content)
-            conn.close()
-            continue
+            return_to_conn(conn, 200, location, content)
             
 
 ## This the entry point of the script.
