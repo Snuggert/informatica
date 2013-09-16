@@ -1,0 +1,123 @@
+\documentclass{article}
+
+\usepackage{amsmath, graphicx}
+
+\title{Huiswerk week 2}
+\author{Bas van den Heuvel}
+
+\begin{document}
+
+\maketitle
+
+\section{Homogene Co\"ordinaten}
+\begin{enumerate}
+
+\item Om het mezelf makkelijker te maken, heb ik de co\"ordinaten in een matrix
+gezet.
+
+$$ X = \begin{bmatrix}
+0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1
+\end{bmatrix} $$
+
+\begin{itemize}
+
+\item $ T_1 X = \begin{bmatrix}
+1 & 0 & 5 \\
+0 & 1 & 3 \\
+0 & 0 & 1
+\end{bmatrix} \begin{bmatrix}
+0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1
+\end{bmatrix} = \begin{bmatrix}
+5 & 6 & 6 & 5 \\
+3 & 3 & 4 & 4 \\
+1 & 1 & 1 & 1
+\end{bmatrix} $
+
+\includegraphics[scale=0.5]{t1}
+
+\item $ T_2 X = \begin{bmatrix}
+1 & 0.5 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix} \begin{bmatrix}
+0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1
+\end{bmatrix} = \begin{bmatrix}
+0 & 1 & 1.5 & 0.5 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1
+\end{bmatrix} $
+
+\includegraphics[scale=0.5]{t2}
+
+\item $ T_3 X = \begin{bmatrix}
+5 & 2 & 1 \\
+2 & 3 & 1 \\
+1 & 1 & 1
+\end{bmatrix} \begin{bmatrix}
+0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1
+\end{bmatrix} = \begin{bmatrix}
+1 & 6 & 8 & 3 \\
+1 & 3 & 6 & 4 \\
+1 & 2 & 3 & 2
+\end{bmatrix} $
+
+\includegraphics[scale=0.5]{t3}
+
+\item $ T_4 X = \begin{bmatrix}
+2 & -1 & 0 \\
+1 & 2 & 0 \\
+0 & 0 & \sqrt{5}
+\end{bmatrix} \begin{bmatrix}
+0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1
+\end{bmatrix} = \begin{bmatrix}
+0 & 2 & 1 & -1 \\
+0 & 1 & 3 & 2 \\
+\sqrt{5} & \sqrt{5} & \sqrt{5} & \sqrt{5}
+\end{bmatrix} $
+
+\includegraphics[scale=0.5]{t4}
+
+\end{itemize}
+
+\item Ik heb deze (en ook nog de paar volgende) opgave gemaakt met behulp van
+een simpel Python scriptje dat ik heb geschreven.
+
+De twee rijen in de lijst horen op \'e\'en rij te staan, maar dat krijg ik niet
+werkende.
+
+$$ f * w = g = \frac{1}{9} \begin{Bmatrix} 12 & 16 & 18 & 18 & 18 & 18 & 24 &
+36 & 53 & 66 & 72 & 72 & 72 & 72 & 64 & 48 \end{Bmatrix} $$
+
+\item De rode lijn is $ f $ en de blauwe lijn is $ g $.
+
+\includegraphics[scale=0.5]{plot}
+
+\item $$ f * w = g = \begin{Bmatrix} -1 & 0 & 0 & 0 & 0 & 0 & 0 & -3 & -3 & 0 &
+0 & 0 & 0 & 0 & 0 & 4 \end{Bmatrix} $$
+
+\item $$ f * w = g = \frac{1}{27} \begin{Bmatrix} 1 & 2 & 3 & 2 & 1
+\end{Bmatrix} $$
+
+\item
+
+\begin{itemize}
+
+\item $ g(4, 8) = 17 $
+\item $ g(5, 5) = 24 $
+\item $ g(10, 2) = 22 $
+
+\end{itemize}
+
+\end{enumerate}
+
+\end{document}
