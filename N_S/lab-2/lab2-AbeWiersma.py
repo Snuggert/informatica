@@ -80,7 +80,8 @@ def serve(port, public_html, cgibin):
     HOST = ''
     PORT = port
     global server 
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM,
+                           socket.IPPROTO_TCP)
     server.bind((HOST,PORT))
     server.listen(1)
 
@@ -121,6 +122,10 @@ def serve(port, public_html, cgibin):
                 return_to_conn(conn, 501)
                 continue
             file_location = cgibin + location_regex.group(1)
+            if not os.path.exists(file_location):
+                return_to_conn(conn, 404)
+                continue
+
             location_regex = re.search('.*\?(.*)', location)
             if not location_regex:
                 query_string = ''
@@ -128,12 +133,17 @@ def serve(port, public_html, cgibin):
                 query_string = location_regex.group(1)
 
             cmd = 'python ' + file_location
-            print(cmd)
+            
+            env = os.environ
+            env.update({'DOCUMENT_ROOT': public_html, 'REQUEST_METHOD': request,
+                        'REQUEST_URI': file_location, 
+                        'QUERY_STRING': query_string})
 
-            conn.sendall(build_response_status())
-            conn.sendall('\n')
+            # send OK status
+            conn.send(build_response_status())
+            conn.send('\n')
             # try starting subprocess
-            subprocess.Popen(cmd, shell=True, stdout=conn)
+            subprocess.Popen(cmd, env=env, shell=True, stdout=conn)
 
             conn.close()
             continue
@@ -175,6 +185,6 @@ if __name__ == '__main__':
     p.add_argument('--public_html', help='home directory', default='./public_html')
     p.add_argument('--cgibin', help='cgi-bin directory', default='./cgi-bin')
     args = p.parse_args(sys.argv[1:])
-    public_html = os.path.posixpath(args.public_html)
+    public_html = os.path.abspath(args.public_html)
     cgibin = os.path.abspath(args.cgibin)
     serve(args.port, public_html, cgibin)
