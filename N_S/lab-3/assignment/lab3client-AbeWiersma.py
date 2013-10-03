@@ -2,7 +2,6 @@
 ## NAME:
 ## STUDENT ID:
 from gui import MainWindow
-import time
 import socket
 import select
 
@@ -28,7 +27,8 @@ def loop(host, port, cert):
     while w.update():
         line = w.getline()
         if line:
-            sock.send(line)    
+            while True:
+                sock.send(line)    
 
         inputready, outputready, exceptrdy = select.select([sock], [],[], 0.3)
         for i in inputready:

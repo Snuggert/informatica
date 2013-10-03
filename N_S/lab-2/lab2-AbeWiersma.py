@@ -140,15 +140,14 @@ def serve(port, public_html, cgibin):
                         'QUERY_STRING': query_string})
 
             # send OK status
-            conn.send(build_response_status())
-            conn.send('\n')
+            conn.sendall(build_response_status())
             # try starting subprocess
             subprocess.Popen(cmd, env=env, shell=True, stdout=conn)
 
             conn.close()
             continue
-
-        if(location == '/'):
+        
+        if location == '/':
             location = '/index.html'
 
         # set/check response_proto.
@@ -175,7 +174,7 @@ def serve(port, public_html, cgibin):
         # if content return requested file in html format
         if content:
             return_to_conn(conn, 200, location, content)
-            
+        
 
 ## This the entry point of the script.
 ## Do not change this part.

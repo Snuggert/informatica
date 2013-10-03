@@ -8,19 +8,24 @@ def plot_shape(points, color='r'):
         pl.plot(x, y, color)
 
 if __name__ == '__main__':
-    plot_shape([(0, 0), (1, 0), (1, 1), (0, 1)], 'b')
+    plot_shape([(0, 0), (1, 0), (1, 1), (0, 1)], 'k')
+    pl.annotate('Black = original', (-1, 6))
 
-    # plot_shape([(5, 3), (6, 3), (6, 4), (5, 4)])
-    # lim = (-1, 7)
+    plot_shape([(5, 3), (6, 3), (6, 4), (5, 4)], 'b')
+    pl.annotate('Blue = T1', (-1, 5.5))
 
-    # plot_shape([(0, 0), (1, 0), (1.5, 1), (0.5, 1)])
-    # lim = (-1, 2.5)
+    plot_shape([(0, 0), (1, 0), (1.5, 1), (0.5, 1)], 'g')
+    pl.annotate('Green = T2', (-1, 5))
+ 
+    plot_shape([(1, 1), (6, 3), (8, 6), (3, 4)], 'y')
+    pl.annotate('Yellow = T3', (-1, 4.5))
 
-    # plot_shape([(1, 1), (6, 3), (8, 6), (3, 4)])
-    # lim = (-1, 9)
+    plot_shape([(0, 0), (2, 1), (1, 3), (-1, 2)], 'r')
+    pl.annotate('Red = T4', (-1, 4))
 
-    plot_shape([(0, 0), (2, 1), (1, 3), (-1, 2)])
-    lim = (-2, 4)
+    lim = (-2, 9)
+
+
 
     pl.xlim(lim)
     pl.ylim(lim)
