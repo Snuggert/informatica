@@ -1,0 +1,28 @@
+Research in IAS focusses on the following topics :
+    Perception for autonomous systems, including vision and sound processing.
+    Learning, including neuro-computation and probabilistic models.
+    Geometric Principles of autonomous systems.
+    Real world multi-agent systems (soccer)
+
+Papers:
+RoboCup Rescue Robot and Simulation Leagues - AI-Magazine
+
+Ik herken niemand, Rein misschien.
+http://isla.science.uva.nl/node/24
+
+IAS Intelligent Autonomous Systems
+ILPS Information and Language Processing Systems
+ISIS Intelligent Sensory Information Systems
+
+For more information:
+http://isla.science.uva.nl/
+
+De opleiding Intelligent Autonomous Systems focussed zich rondom het programmeren van systemen om slim beeld en geluid te verwerken, om zelf lerend te zijn en om met elkaar een oplossing te vinden voor een probleem.
+Zo is er laatst een artikel uitgebracht door AI-magazine geschreven door IAS group over robocup rescue robots die bestemd zijn om mensenlevens te redden.
+Om te weten wie hier mee bezig is ga naar:
+http://isla.science.uva.nl/node/24
+
+En voor nog meer informatie, kan je de site van de IAS vinden onder het dak van een samenwerkingsverband:
+http://isla.science.uva.nl/node/24
+
+Luiheid talk
