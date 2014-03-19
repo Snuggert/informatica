@@ -1,9 +1,9 @@
 /* Computer Graphics, Assignment, Volume rendering with cubes/points/isosurface
  *
- * Student name ....
- * Student email ...
- * Collegekaart ....
- * Date ............
+ * Student name: Abe Wiersma
+ * Student email: abe.wiersma@hotmail.nl
+ * Collegekaart: 10433120
+ * Date: 13-03-14
  * Comments ........
  *
  * (always fill in these fields before submitting!!)
@@ -38,6 +38,25 @@ cell
 get_cell(int i, int j, int k)
 {
     cell c;
+    
+    c.p[0] = v3_create(i, j, k);
+    c.p[1] = v3_create(i+1, j, k);
+    c.p[2] = v3_create(i, j+1, k);
+    c.p[3] = v3_create(i+1, j+1, k);
+    c.p[4] = v3_create(i, j, k+1);
+    c.p[5] = v3_create(i+1, j, k+1);
+    c.p[6] = v3_create(i, j+1, k+1);
+    c.p[7] = v3_create(i+1, j+1, k+1);
+
+    c.value[0] = voxel2idx(i, j, k);
+    c.value[1] = voxel2idx(i+1, j, k);
+    c.value[2] = voxel2idx(i, j+1, k);
+    c.value[3] = voxel2idx(i+1, j+1, k);
+    c.value[4] = voxel2idx(i, j, k+1);
+    c.value[5] = voxel2idx(i+1, j, k+1);
+    c.value[6] = voxel2idx(i, j+1, k+1);
+    c.value[7] = voxel2idx(i+1, j+1, k+1);
+
     return c;
 }
 

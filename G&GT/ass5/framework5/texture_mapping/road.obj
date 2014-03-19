@@ -4,9 +4,13 @@ v -100 0 -5
 v -100 0 5
 
 # (5=road texture)
+# use negative corners as 0
+# the length of the road is 20 times longer than the width so use 20 and 1
+# for the positive corners
+
 p 4 5
 0.85 0.85 0.85
-0  0.0 0.0
-1  0.0 0.0
-2  0.0 0.0
-3  0.0 0.0
+0 20.0 1.0
+1 20.0 0.0
+2 0.0 0.0
+3 0.0 1.0

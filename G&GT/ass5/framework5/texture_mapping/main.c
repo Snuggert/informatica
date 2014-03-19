@@ -4,11 +4,11 @@
  * Description ..... Creates OpenGL window and draws the scene.
  * Created by ...... Paul Melis, Robert Belleman, Jurgen Sturm
  *
- * Student name ....
- * Student email ...
- * Collegekaart ....
- * Date ............
- * Comments ........
+ * Student name: Abe Wiersma
+ * Student email: abe.wiersma@hotmail.nl
+ * Collegekaart: 10433120
+ * Date: 13-03-14
+ * Comments: ........
  *
  * (always fill in these fields before submitting!!)
  */
@@ -133,9 +133,7 @@ InitializePolygonlists(void)
 
     // A single tree object
     polylistTreeLeafs = CreatePolylist(10);
-    createSphere(polylistTreeLeafs, 0.7, 0.7, 0.7,  0, 1.7, 0,  0, 1, 0);
-    for (i = 0; i < polylistTreeLeafs->length; i++)
-        polylistTreeLeafs->items[i].texture_id = texture_names[0];
+    loadPolygonalObject(polylistTreeLeafs, "leaf.obj", texture_names, 1.0, 0.0, 0.0, 0.0);
 
     polylistTreeStem = CreatePolylist(10);
     createCylinder(polylistTreeStem, 0.075, 1.8,  0, 0, 0,  0.5, 0.3, 0);
@@ -257,14 +255,15 @@ InitGL(void)
             glBindTexture(GL_TEXTURE_2D, texture_names[i]);
             glCheckError("glBindTexture");
 
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             glCheckError("glTexParameteri");
 
-            glTexImage2D(GL_TEXTURE_2D, 0, texture_internal_format,
-                width, height, 0, texture_format, texture_type, image_data);
+            /* mipmapped */
+            gluBuild2DMipmaps(GL_TEXTURE_2D, texture_internal_format, width,
+                    height, texture_format, texture_type, image_data);
             glCheckError("glTexImage2D");
 
             // Free the image data, as OpenGL will have made its internal copy by now
@@ -313,6 +312,8 @@ DrawPolylist(polys * list)
         for (j = 0; j < p.points; j++)
         {
             glNormal3f(p.normal[j].x, p.normal[j].y, p.normal[j].z);
+            /* Set texture coordinates. */
+            glTexCoord2f(p.tcoord[j].x, p.tcoord[j].y);
             glVertex3f(p.pts[j].x, p.pts[j].y, p.pts[j].z);
         }
         glEnd();
@@ -420,7 +421,10 @@ DrawGLScene(void)
         glScalef(1, 1 + (rand_float()-0.5)*0.6, 1);
 
         DrawPolylist(polylistTreeStem);
-        DrawPolylist(polylistTreeLeafs);
+        for (int i = 0; i < 6; i++) {
+            DrawPolylist(polylistTreeLeafs);
+            glRotatef(60.0, 0, 1, 0);
+        }
 
         glPopMatrix();
     }
@@ -429,7 +433,7 @@ DrawGLScene(void)
 
     glPushAttrib(GL_LIGHTING_BIT);
     glDisable(GL_LIGHTING);
-    //DrawPolylist(polylistSkydome);
+    DrawPolylist(polylistSkydome);
     glPopAttrib();
 
     glutSwapBuffers();

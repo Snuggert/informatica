@@ -60,10 +60,10 @@ void draw_triangle(float x0, float y0, float x1, float y1, float x2, float y2,
         else if(ceil(x_array[index]) > x_max){
             x_max = ceil(x_array[index]);
         }
-        if(floor(y_array[index]) < x_min){
+        if(floor(y_array[index]) < y_min){
             y_min = floor(y_array[index]);
         }
-        else if(ceil(y_array[index]) > x_max){
+        else if(ceil(y_array[index]) > y_max){
             y_max = ceil(y_array[index]);
         }
     }
