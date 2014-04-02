@@ -1,0 +1,61 @@
+\documentclass[pdftex,12pt,a4paper]{article}
+
+\usepackage{wrapfig,amssymb,amsmath,graphicx, subfigure}
+\usepackage[dutch]{babel}
+\usepackage[top=0.5in, bottom=0.5in, left=1in, right=1in]{geometry}
+\pagenumbering{arabic}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+\input{title.tex}
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+            	$$U=\{1,2,3,4,5,6\}$$
+            \item
+            	gooi 1 heeft:
+            		$$U=\{1,2,3,4,5,6\}$$
+            	gooi 2 heeft ook:
+            		$$U=\{1,2,3,4,5,6\}$$
+            	Dit is ook te zien als:
+            		$$U=\{2,3,4,5,6,7,8,9,10,11,12\}$$
+            	Waarbij de getallen de optelling van het aantal ogen van de twee worpen is.
+            \item
+            	De kans om tweemaal 6 te gooien is tweemaal $1/6 \rightarrow 1/36$
+            \item
+            	De kans om met tweemaal gooien 9 ogen te gooien is 4 keer 1/36, namelijk door 4,5 en 6,3 en omgedraaid.
+            \item
+            	Laat U wederom bestaan uit de getallen 2 t/m 12.
+            	Dan is de kans $P(X=i) = \sum_{i=1}^{10}$
+            \item
+            	Met 2 dobbelstenen kan even ogen gegooid worden door met allebei de dobbelstenen even te gooien of door allebei met de dobbelstenen oneven te gooien, omdat er 1/2 kans is met iedere dobbelsteen even of oneven te gooien heb je 1/2 kans om even te gooien met 2 dobbelstenen.
+        \end{enumerate}
+
+    \item
+    	$$P(A \wedge B) = 0.4$$
+    	$$P(A/B) = 0.1$$
+    	$$P(B/A) = 0.3$$
+    	$$P((B \vee A)^c) = 0.2$$
+
+	\item
+    	\begin{enumerate}
+    		\item
+    			$$P(A \vee B) = P(A) + P(B) - P(A \wedge B)$$
+    			$$P(A \vee B) = P(A) + P(B) - (P(A) + P(B) - P(A \vee B))$$
+    			$$P(A \vee B) = P(A \vee B)$$
+    		\item
+    			$$P(\neg A) = 1 - P(A)$$
+    			$$P(\neg A) + P(A) = 1$$
+    			$$P(U) = 1$$
+
+    		\item
+
+    	\end{enumerate}
+    \item
+    	4
+    \item 
+    	5
+\end{enumerate}
+
+\end{document}
