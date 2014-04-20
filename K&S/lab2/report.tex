@@ -8,15 +8,30 @@
 
 \begin{document}
 \input{title.tex}
+\section{Deel 1}
 \begin{enumerate}
     \item
         \begin{enumerate}
             \item
-            	
+            	$ f(x) =    \left\{
+                                \begin{matrix}
+                                    1/7 & \text{Wanneer x binnen de verdeling.}\\
+                                    0 & \text{Wanneer daarbuiten.}
+                                \end{matrix}
+                            \right$\\
+                En dus\\
+                $ F(x) =    \left\{
+                                \begin{matrix}
+                                    0 & \text{als $x < a$}\\
+                                    (x-3)/(9-3) & \text{Wanneer x binnen de verdeling.}\\
+                                    1 & \text{als $x \geq b$}
+                                \end{matrix}
+                            \right$
             \item
-
+                $[-10,-9,...,3] \vee [3,4,...,9] = [3]$
+                $P(3) = 1/7$
             \item
-
+                $((b-a) + 1) * 1/7$
         \end{enumerate}
 
     \item
@@ -31,16 +46,11 @@
                 Check 2.2d.py
         \end{enumerate}
 	\item
-    	\begin{enumerate}
-    		\item
-
-    		\item
-
-    		\item
-
-            \item
-
-    	\end{enumerate}
+    	Check 3.py
 \end{enumerate}
-
+\section{Naive Bayes Classifier}
+    Onze python implementatie is te vinden in NaiveBayes.py.
+    De Naive Bayes test is te vinden in $male_or_female$,
+    met als test data de eerste man uit de data.
+    We kwamen in tijdnood en konden dus de nodige tests niet uitvoeren.
 \end{document}
