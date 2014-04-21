@@ -1,0 +1,9 @@
+1. 
+
+2.4 Numpy (as well as the random library) uses the Mersenne Twister pseudorandom generator.
+
+3.1 de verwachting is lambda^-1. De variantie is lambda^-2
+3.2 lambda is de intensiteitsparameter. Met een hogere lambda zal de functie 
+met een hogere waarde beginnen, maar hij zal ook sneller afnemen. 
+3.3 Het gemiddelde van de waarden die eruit komen zouden (ongeveer) gelijk moeten zijn aan de verwachting.
+    Dus je neem het gemiddelde van de gevonden waardes en verheft die tot de macht -1.
