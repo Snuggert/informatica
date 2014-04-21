@@ -1,12 +1,17 @@
+import math
 import numpy
 import re
 import random
+import matplotlib.pyplot as plt
 from scipy.stats import norm
 
 
 def main():
-    not_in = 0.05
     within = 0
+    not_in = 0.05
+    enddata = []
+    yerr = []
+
     # reading of data, with regex :)
     rawdata = []
     ptrn = '([1-9][0-9]*.[0-9]*)$'
@@ -45,6 +50,16 @@ def main():
                                numpy.sqrt(50))
         if data_mean >= lower and data_mean <= upper:
             within += 1
-    print within
+
+        enddata.append(random_mean)
+        yerr.append([math.fabs(lower - random_mean),
+                     math.fabs(upper - random_mean)])
+
+    enddata = numpy.array(enddata)
+    yerr = numpy.array(yerr)
+    plt.errorbar(range(100), enddata, yerr=yerr.T, fmt='o')
+    plt.show()
+    print 'full collection mean within: ' + str(within) + ' of: ' + str(100)
+
 if __name__ == '__main__':
     main()
