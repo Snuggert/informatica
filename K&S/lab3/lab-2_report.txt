@@ -1,9 +1,15 @@
-1. 
+\section{Rekenen met stochasten}
+$$E(X)=\sum\limits_{x}xP_X(x) = \sum\limits_{x}\sum\limits_{y}xP_{XY}(x,y)$$
+$$E(X) + E(Y) = \sum\limits_{x}\sum\limits_{y}xP_{XY}(x,y) + \sum\limits_{y}\sum\limits_{y}yP_{XY}(x,y) = $$
+$$\sum\limits_{x}\sum\limits_{y}(x + y)P_{XY}(x,y) = E(X+Y)$$
 
-2.4 Numpy (as well as the random library) uses the Mersenne Twister pseudorandom generator.
+\section{Uniform verdeelde stochasten}
+2.3 \\
+2.4 Numpy (as well as the random library) uses the Mersenne Twister pseudorandom generator. The domain of this generator is far larger than IBM's generator, so the chance of repetition is far smaller. Also, you will need far more  consecutive numbers to spot the pattern and be able to predict the further output of the generator. But it is still possible with Mersenne Twister, so if you are concerned with safety another generator should be used.\\
 
-3.1 de verwachting is lambda^-1. De variantie is lambda^-2
-3.2 lambda is de intensiteitsparameter. Met een hogere lambda zal de functie 
-met een hogere waarde beginnen, maar hij zal ook sneller afnemen. 
+\section{De exponentiële verdeling}
+3.1 de verwachting is $\lambda^-1$. De variantie is $\lambda^-2$\\
+3.2 $\lambda$ is de intensiteitsparameter. Met een hogere $\lambda$ zal de functie 
+met een hogere waarde beginnen, maar hij zal ook sneller afnemen. \\
 3.3 Het gemiddelde van de waarden die eruit komen zouden (ongeveer) gelijk moeten zijn aan de verwachting.
-    Dus je neem het gemiddelde van de gevonden waardes en verheft die tot de macht -1.
+    Dus je neem het gemiddelde van de gevonden waardes en verheft die tot de macht -1.\\
