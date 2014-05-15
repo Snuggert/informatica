@@ -1,0 +1,57 @@
+\documentclass[pdftex,12pt,a4paper]{article}
+
+\usepackage{wrapfig,amssymb,amsmath,graphicx, subfigure}
+\usepackage[dutch]{babel}
+\usepackage[top=0.5in, bottom=0.5in, left=1in, right=1in]{geometry}
+\pagenumbering{arabic}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+\bibliographystyle{plain}
+\noindent Opdracht RDC1\\ 
+Abe Wiersma(10433120)\\
+\today
+\section*{Software}
+\subsection{Ada Lovelace (het begin)}
+Ada Lovelace wordt door velen beschouwd als de eerste persoon die zich bezig
+hield met het programmeren van computers. In haar aantekeningen, gepubliceerd
+rond 1842, staat een algoritme beschreven dat met behulp van
+'The Analytical Machine', bedacht door haar man Charles Babbage, Bernoulli
+getallen produceert. De machine van Babbage is overigens nooit voltooid dus is
+haar code nooit getest.
+\subsection{De ontwikkeling}
+In Mei 1949 werd de EDSAC(Electronic Delay Storage Automatic Calculator) door
+de universiteit van Cambridge voltooid. EDSAC was de eerste computer die zijn
+programma kon opslaan in zijn digitale geheugen. Met de EDSAC kwam ook de
+realisatie dat het bouwen van een computer slechts stap 1 was, en dat om de
+computer te gebruiken 'software' nodig was. Rond juni kwam men er op Cambridge
+achter dat het ontwikkelen van routines(later programma's) verassend moeilijk
+was. 
+
+De programmeurs ontwikkelden een assembly manier voor het representeren van
+operaties, zo kon een stukje code dat voor een additie van een
+'short' getal in geheugen locatie 25 zorgde er zo uit zien als bitstring:
+11100000000110010, en zo uit zien in 'assembly': A 25 S.\cite{campbell2014history}
+De ingenieurs van Cambridge kwamen er al snel achter dat de computer deze
+conversie afkon en op die manier niet in bit strings hoefden te programmeren.
+In de jaren die volgden kwamen er woorden om het programmeerproces te
+omschrijven, bijvoorbeeld: fouten werden bugs en het oplossen van fouten was
+debugging. Er waren zoveel bugs in alle programma's die ontwikkeld werden dat
+er een software crisis ontstond, programma's kostten te veel, deadlines werden
+niet behaald en de eindresultaten zaten vol met bugs. De vraag waarom werkende
+software maken zo moeilijk is houdt de afgelopen tientallen jaren de computer
+industrie in zijn grip. Wanneer een bug zich voordeet had je geen traceback en
+geen scherm om te zien waar je was gebleven in je code, wat ze wel hadden was
+een luidspreker. Dus wanneer er een bepaalde toon net was geproduceerd wist je
+waar de fout in de code was. Met de komst van de beeldschermen was dit niet meer
+nodig en raakte luidspreker debugging in het verval.
+Om bugs te verminderen werden vaak gebruikte functies in bibliotheken
+gezet, hierdoor was het mogelijk dat programma uit twee derde
+subroutines(functies die al geschreven waren) en één derde uit nieuwe code.
+
+\subsection{Het resultaat}
+Het vakgebied software engineering werd in 1967 voor het eerst officieel erkend
+door een studie-groep van de NATO wetenschaps commissie, die opriep tot een
+conferentie over het onderwerp.
+\bibliography{bib}
+\end{document}
