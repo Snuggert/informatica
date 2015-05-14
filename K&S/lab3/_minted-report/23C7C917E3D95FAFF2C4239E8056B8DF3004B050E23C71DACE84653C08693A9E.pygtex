@@ -1,0 +1,62 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{math}
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{numpy}
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{re}
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{random}
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{matplotlib.pyplot} \PYGdefault{k+kn}{as} \PYGdefault{n+nn}{plt}
+\PYGdefault{k+kn}{from} \PYGdefault{n+nn}{scipy.stats} \PYGdefault{k+kn}{import} \PYGdefault{n}{norm}
+
+\PYGdefault{n}{within} \PYGdefault{o}{=} \PYGdefault{l+m+mi}{0}
+\PYGdefault{n}{not\PYGdefaultZus{}in} \PYGdefault{o}{=} \PYGdefault{l+m+mf}{0.05}
+\PYGdefault{n}{enddata} \PYGdefault{o}{=} \PYGdefault{p}{[]}
+\PYGdefault{n}{yerr} \PYGdefault{o}{=} \PYGdefault{p}{[]}
+
+\PYGdefault{c}{\PYGdefaultZsh{} reading of data, with regex :)}
+\PYGdefault{n}{rawdata} \PYGdefault{o}{=} \PYGdefault{p}{[]}
+\PYGdefault{n}{ptrn} \PYGdefault{o}{=} \PYGdefault{l+s}{\PYGdefaultZsq{}([1\PYGdefaultZhy{}9][0\PYGdefaultZhy{}9]*.[0\PYGdefaultZhy{}9]*)\PYGdefaultZdl{}\PYGdefaultZsq{}}
+\PYGdefault{n}{lines} \PYGdefault{o}{=} \PYGdefault{p}{[}\PYGdefault{n}{line}\PYGdefault{o}{.}\PYGdefault{n}{strip}\PYGdefault{p}{()} \PYGdefault{k}{for} \PYGdefault{n}{line} \PYGdefault{o+ow}{in} \PYGdefault{n+nb}{open}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZsq{}tijden\PYGdefaultZhy{}medium.log\PYGdefaultZsq{}}\PYGdefault{p}{)]}
+\PYGdefault{k}{for} \PYGdefault{n}{line} \PYGdefault{o+ow}{in} \PYGdefault{n}{lines}\PYGdefault{p}{:}
+    \PYGdefault{n}{searchResult} \PYGdefault{o}{=} \PYGdefault{n}{re}\PYGdefault{o}{.}\PYGdefault{n}{search}\PYGdefault{p}{(}\PYGdefault{n}{ptrn}\PYGdefault{p}{,} \PYGdefault{n}{line}\PYGdefault{p}{)}
+    \PYGdefault{k}{if} \PYGdefault{n}{searchResult}\PYGdefault{p}{:}
+        \PYGdefault{k}{if} \PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{):}
+            \PYGdefault{n}{rawdata}\PYGdefault{o}{.}\PYGdefault{n}{append}\PYGdefault{p}{(}\PYGdefault{n+nb}{float}\PYGdefault{p}{(}\PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{)))}
+    \PYGdefault{k}{else}\PYGdefault{p}{:}
+        \PYGdefault{k}{print}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZsq{}line did not pass regex\PYGdefaultZsq{}}\PYGdefault{p}{)}
+
+\PYGdefault{k}{for} \PYGdefault{n}{pla} \PYGdefault{o+ow}{in} \PYGdefault{n+nb}{range}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{100}\PYGdefault{p}{):}
+    \PYGdefault{c}{\PYGdefaultZsh{} transform array to numpy array, for further numpy use.}
+    \PYGdefault{n}{data} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{array}\PYGdefault{p}{(}\PYGdefault{n}{rawdata}\PYGdefault{p}{)}
+    \PYGdefault{n}{data\PYGdefaultZus{}mean} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{mean}\PYGdefault{p}{(}\PYGdefault{n}{data}\PYGdefault{p}{)}
+
+    \PYGdefault{c}{\PYGdefaultZsh{} draw fifty random numbers from list.}
+    \PYGdefault{n}{fifty\PYGdefaultZus{}random} \PYGdefault{o}{=} \PYGdefault{p}{[]}
+    \PYGdefault{k}{for} \PYGdefault{n}{i} \PYGdefault{o+ow}{in} \PYGdefault{n+nb}{range}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{50}\PYGdefault{p}{):}
+        \PYGdefault{n}{random\PYGdefaultZus{}index} \PYGdefault{o}{=} \PYGdefault{n}{random}\PYGdefault{o}{.}\PYGdefault{n}{randrange}\PYGdefault{p}{(}\PYGdefault{n+nb}{len}\PYGdefault{p}{(}\PYGdefault{n}{data}\PYGdefault{p}{))}
+        \PYGdefault{n}{fifty\PYGdefaultZus{}random}\PYGdefault{o}{.}\PYGdefault{n}{append}\PYGdefault{p}{(}\PYGdefault{n}{data}\PYGdefault{p}{[}\PYGdefault{n}{random\PYGdefaultZus{}index}\PYGdefault{p}{])}
+        \PYGdefault{n}{data} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{delete}\PYGdefault{p}{(}\PYGdefault{n}{data}\PYGdefault{p}{,} \PYGdefault{n}{random\PYGdefaultZus{}index}\PYGdefault{p}{)}
+
+    \PYGdefault{n}{fifty\PYGdefaultZus{}random} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{array}\PYGdefault{p}{(}\PYGdefault{n}{fifty\PYGdefaultZus{}random}\PYGdefault{p}{)}
+
+    \PYGdefault{n}{random\PYGdefaultZus{}mean} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{mean}\PYGdefault{p}{(}\PYGdefault{n}{fifty\PYGdefaultZus{}random}\PYGdefault{p}{)}
+    \PYGdefault{n}{random\PYGdefaultZus{}sigma} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{sqrt}\PYGdefault{p}{(}\PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{var}\PYGdefault{p}{(}\PYGdefault{n}{fifty\PYGdefaultZus{}random}\PYGdefault{p}{))}
+
+    \PYGdefault{c}{\PYGdefaultZsh{} definition of Cumulative distributive function of x, in this case:}
+    \PYGdefault{c}{\PYGdefaultZsh{} 1\PYGdefaultZhy{}(a/2)}
+    \PYGdefault{n}{z} \PYGdefault{o}{=} \PYGdefault{n}{norm}\PYGdefault{o}{.}\PYGdefault{n}{ppf}\PYGdefault{p}{(}\PYGdefault{l+m+mf}{1.0} \PYGdefault{o}{\PYGdefaultZhy{}} \PYGdefault{p}{(}\PYGdefault{l+m+mf}{0.5} \PYGdefault{o}{*} \PYGdefault{n}{not\PYGdefaultZus{}in}\PYGdefault{p}{))}
+    \PYGdefault{n}{lower} \PYGdefault{o}{=} \PYGdefault{n}{random\PYGdefaultZus{}mean} \PYGdefault{o}{\PYGdefaultZhy{}} \PYGdefault{p}{(}\PYGdefault{n}{z} \PYGdefault{o}{*} \PYGdefault{n}{random\PYGdefaultZus{}sigma} \PYGdefault{o}{/}
+                           \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{sqrt}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{50}\PYGdefault{p}{))}
+    \PYGdefault{n}{upper} \PYGdefault{o}{=} \PYGdefault{n}{random\PYGdefaultZus{}mean} \PYGdefault{o}{+} \PYGdefault{p}{(}\PYGdefault{n}{z} \PYGdefault{o}{*} \PYGdefault{n}{random\PYGdefaultZus{}sigma} \PYGdefault{o}{/}
+                           \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{sqrt}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{50}\PYGdefault{p}{))}
+    \PYGdefault{k}{if} \PYGdefault{n}{data\PYGdefaultZus{}mean} \PYGdefault{o}{\PYGdefaultZgt{}=} \PYGdefault{n}{lower} \PYGdefault{o+ow}{and} \PYGdefault{n}{data\PYGdefaultZus{}mean} \PYGdefault{o}{\PYGdefaultZlt{}=} \PYGdefault{n}{upper}\PYGdefault{p}{:}
+        \PYGdefault{n}{within} \PYGdefault{o}{+=} \PYGdefault{l+m+mi}{1}
+
+    \PYGdefault{n}{enddata}\PYGdefault{o}{.}\PYGdefault{n}{append}\PYGdefault{p}{(}\PYGdefault{n}{random\PYGdefaultZus{}mean}\PYGdefault{p}{)}
+    \PYGdefault{n}{yerr}\PYGdefault{o}{.}\PYGdefault{n}{append}\PYGdefault{p}{([}\PYGdefault{n}{math}\PYGdefault{o}{.}\PYGdefault{n}{fabs}\PYGdefault{p}{(}\PYGdefault{n}{lower} \PYGdefault{o}{\PYGdefaultZhy{}} \PYGdefault{n}{random\PYGdefaultZus{}mean}\PYGdefault{p}{),}
+                 \PYGdefault{n}{math}\PYGdefault{o}{.}\PYGdefault{n}{fabs}\PYGdefault{p}{(}\PYGdefault{n}{upper} \PYGdefault{o}{\PYGdefaultZhy{}} \PYGdefault{n}{random\PYGdefaultZus{}mean}\PYGdefault{p}{)])}
+
+\PYGdefault{n}{enddata} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{array}\PYGdefault{p}{(}\PYGdefault{n}{enddata}\PYGdefault{p}{)}
+\PYGdefault{n}{yerr} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{array}\PYGdefault{p}{(}\PYGdefault{n}{yerr}\PYGdefault{p}{)}
+\PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{errorbar}\PYGdefault{p}{(}\PYGdefault{n+nb}{range}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{100}\PYGdefault{p}{),} \PYGdefault{n}{enddata}\PYGdefault{p}{,} \PYGdefault{n}{yerr}\PYGdefault{o}{=}\PYGdefault{n}{yerr}\PYGdefault{o}{.}\PYGdefault{n}{T}\PYGdefault{p}{,} \PYGdefault{n}{fmt}\PYGdefault{o}{=}\PYGdefault{l+s}{\PYGdefaultZsq{}o\PYGdefaultZsq{}}\PYGdefault{p}{)}
+\PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{show}\PYGdefault{p}{()}
+\PYGdefault{k}{print}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZsq{}full collection mean within: \PYGdefaultZsq{}} \PYGdefault{o}{+} \PYGdefault{n+nb}{str}\PYGdefault{p}{(}\PYGdefault{n}{within}\PYGdefault{p}{)} \PYGdefault{o}{+} \PYGdefault{l+s}{\PYGdefaultZsq{} of: \PYGdefaultZsq{}} \PYGdefault{o}{+} \PYGdefault{n+nb}{str}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{100}\PYGdefault{p}{))}
+\end{Verbatim}

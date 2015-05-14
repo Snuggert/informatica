@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.5.8)  29 APR 2014 22:19
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.5.8)  10 MAY 2015 10:35
 entering extended mode
 **report.tex
 (A:\School\informatica\Reflectie\ass4\report.tex
@@ -205,7 +205,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@dimlist=\toks22
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
-No file report.aux.
+(A:\School\informatica\Reflectie\ass4\report.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
@@ -218,6 +218,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
+
 (C:\Users\TheAbe\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count109
@@ -287,8 +288,8 @@ Missing character: There is no © in font cmr12!
 {C:/Users/TheAbe/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 (A:\School\informatica\Reflectie\ass4\report.aux) ) 
 Here is how much of TeX's memory you used:
- 3069 strings out of 493921
- 39559 string characters out of 3144874
+ 3071 strings out of 493921
+ 39653 string characters out of 3144874
  102360 words of memory out of 3000000
  6335 multiletter control sequences out of 15000+200000
  9496 words of font info for 36 fonts, out of 3000000 for 9000
@@ -298,7 +299,7 @@ Here is how much of TeX's memory you used:
 eX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.
 9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on report.pdf (1 page, 41253 bytes).
+Output written on report.pdf (1 page, 41470 bytes).
 PDF statistics:
  18 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

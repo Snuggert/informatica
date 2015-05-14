@@ -1,0 +1,109 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{re}
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{numpy}
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{pylab}
+
+\PYGdefault{k}{def} \PYGdefault{n+nf}{male\PYGdefaultZus{}or\PYGdefaultZus{}female}\PYGdefault{p}{(}\PYGdefault{n}{Mmu}\PYGdefault{p}{,} \PYGdefault{n}{Fmu}\PYGdefault{p}{,} \PYGdefault{n}{Msigma}\PYGdefault{p}{,} \PYGdefault{n}{Fsigma}\PYGdefault{p}{,} \PYGdefault{n}{test\PYGdefaultZus{}data}\PYGdefault{p}{):}
+    \PYGdefault{n}{Mpost} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{test\PYGdefaultZus{}data}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],} \PYGdefault{n}{Mmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],} \PYGdefault{n}{Msigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{])} \PYGdefault{o}{*} \PYGdefaultZbs{}
+            \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{test\PYGdefaultZus{}data}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{],} \PYGdefault{n}{Mmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{],} \PYGdefault{n}{Msigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{])} \PYGdefault{o}{*} \PYGdefaultZbs{}
+            \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{test\PYGdefaultZus{}data}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{],} \PYGdefault{n}{Mmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{],} \PYGdefault{n}{Msigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{])}
+    \PYGdefault{n}{Fpost} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{test\PYGdefaultZus{}data}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],} \PYGdefault{n}{Fmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],} \PYGdefault{n}{Fsigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{])} \PYGdefault{o}{*} \PYGdefaultZbs{}
+            \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{test\PYGdefaultZus{}data}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{],} \PYGdefault{n}{Fmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{],} \PYGdefault{n}{Fsigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{])} \PYGdefault{o}{*} \PYGdefaultZbs{}
+            \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{test\PYGdefaultZus{}data}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{],} \PYGdefault{n}{Fmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{],} \PYGdefault{n}{Fsigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{])}
+
+    \PYGdefault{k}{if}\PYGdefault{p}{(}\PYGdefault{n}{Mpost} \PYGdefault{o}{\PYGdefaultZgt{}} \PYGdefault{n}{Fpost}\PYGdefault{p}{):}
+        \PYGdefault{k}{return} \PYGdefault{l+s}{\PYGdefaultZsq{}M\PYGdefaultZsq{}}
+    \PYGdefault{k}{else}\PYGdefault{p}{:}
+        \PYGdefault{k}{return} \PYGdefault{l+s}{\PYGdefaultZsq{}F\PYGdefaultZsq{}}
+
+
+\PYGdefault{c}{\PYGdefaultZsh{} Normal probability density function}
+\PYGdefault{k}{def} \PYGdefault{n+nf}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{x}\PYGdefault{p}{,} \PYGdefault{n}{mu}\PYGdefault{p}{,} \PYGdefault{n}{sigma}\PYGdefault{p}{):}
+    \PYGdefault{n}{u} \PYGdefault{o}{=} \PYGdefault{p}{(}\PYGdefault{n}{x} \PYGdefault{o}{\PYGdefaultZhy{}} \PYGdefault{n}{mu}\PYGdefault{p}{)} \PYGdefault{o}{/} \PYGdefault{n+nb}{abs}\PYGdefault{p}{(}\PYGdefault{n}{sigma}\PYGdefault{p}{)}
+    \PYGdefault{n}{y} \PYGdefault{o}{=} \PYGdefault{p}{(}\PYGdefault{l+m+mi}{1} \PYGdefault{o}{/} \PYGdefault{p}{(}\PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{sqrt}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{2} \PYGdefault{o}{*} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{pi}\PYGdefault{p}{)} \PYGdefault{o}{*} \PYGdefault{n+nb}{abs}\PYGdefault{p}{(}\PYGdefault{n}{sigma}\PYGdefault{p}{)))} \PYGdefault{o}{*} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{exp}\PYGdefault{p}{(}\PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{n}{u} \PYGdefault{o}{*} \PYGdefault{n}{u} \PYGdefault{o}{/} \PYGdefault{l+m+mi}{2}\PYGdefault{p}{)}
+    \PYGdefault{k}{return} \PYGdefault{n}{y}
+
+
+\PYGdefault{k}{def} \PYGdefault{n+nf}{main}\PYGdefault{p}{():}
+    \PYGdefault{n}{ptrn} \PYGdefault{o}{=} \PYGdefault{l+s}{\PYGdefaultZsq{}\PYGdefaultZca{}([MF])\PYGdefaultZbs{}s?,([1\PYGdefaultZhy{}9][0\PYGdefaultZhy{}9]*|0),([1\PYGdefaultZhy{}9][0\PYGdefaultZhy{}9]*|0),([1\PYGdefaultZhy{}9][0\PYGdefaultZhy{}9]*.?[0\PYGdefaultZhy{}9]|0)\PYGdefaultZdl{}\PYGdefaultZsq{}}
+    \PYGdefault{n}{lines} \PYGdefault{o}{=} \PYGdefault{p}{[}\PYGdefault{n}{line}\PYGdefault{o}{.}\PYGdefault{n}{strip}\PYGdefault{p}{()} \PYGdefault{k}{for} \PYGdefault{n}{line} \PYGdefault{o+ow}{in} \PYGdefault{n+nb}{open}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZsq{}biometrie2014.csv\PYGdefaultZsq{}}\PYGdefault{p}{)]}
+    \PYGdefault{n}{Mdata} \PYGdefault{o}{=} \PYGdefault{p}{[]}
+    \PYGdefault{n}{Fdata} \PYGdefault{o}{=} \PYGdefault{p}{[]}
+    \PYGdefault{k}{for} \PYGdefault{n}{line} \PYGdefault{o+ow}{in} \PYGdefault{n}{lines}\PYGdefault{p}{:}
+        \PYGdefault{n}{searchResult} \PYGdefault{o}{=} \PYGdefault{n}{re}\PYGdefault{o}{.}\PYGdefault{n}{search}\PYGdefault{p}{(}\PYGdefault{n}{ptrn}\PYGdefault{p}{,} \PYGdefault{n}{line}\PYGdefault{p}{)}
+        \PYGdefault{k}{if} \PYGdefault{n}{searchResult}\PYGdefault{p}{:}
+            \PYGdefault{k}{if} \PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{)} \PYGdefault{o}{==} \PYGdefault{l+s}{\PYGdefaultZsq{}M\PYGdefaultZsq{}}\PYGdefault{p}{:}
+                \PYGdefault{n}{Mdata}\PYGdefault{o}{.}\PYGdefault{n}{append}\PYGdefault{p}{([}\PYGdefault{n+nb}{float}\PYGdefault{p}{(}\PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{)),}
+                              \PYGdefault{n+nb}{float}\PYGdefault{p}{(}\PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{3}\PYGdefault{p}{)),}
+                              \PYGdefault{n+nb}{float}\PYGdefault{p}{(}\PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{4}\PYGdefault{p}{))])}
+            \PYGdefault{k}{if} \PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{)} \PYGdefault{o}{==} \PYGdefault{l+s}{\PYGdefaultZsq{}F\PYGdefaultZsq{}}\PYGdefault{p}{:}
+                \PYGdefault{n}{Fdata}\PYGdefault{o}{.}\PYGdefault{n}{append}\PYGdefault{p}{([}\PYGdefault{n+nb}{float}\PYGdefault{p}{(}\PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{)),}
+                              \PYGdefault{n+nb}{float}\PYGdefault{p}{(}\PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{3}\PYGdefault{p}{)),}
+                              \PYGdefault{n+nb}{float}\PYGdefault{p}{(}\PYGdefault{n}{searchResult}\PYGdefault{o}{.}\PYGdefault{n}{group}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{4}\PYGdefault{p}{))])}
+        \PYGdefault{k}{else}\PYGdefault{p}{:}
+            \PYGdefault{k}{print}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZsq{}line did not pass regex\PYGdefaultZsq{}}\PYGdefault{p}{)}
+
+    \PYGdefault{n}{Mdata} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{array}\PYGdefault{p}{(}\PYGdefault{n}{Mdata}\PYGdefault{p}{)}
+    \PYGdefault{n}{Fdata} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{array}\PYGdefault{p}{(}\PYGdefault{n}{Fdata}\PYGdefault{p}{)}
+
+    \PYGdefault{n}{Mmu} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{median}\PYGdefault{p}{(}\PYGdefault{n}{Mdata}\PYGdefault{p}{,} \PYGdefault{n}{axis}\PYGdefault{o}{=}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{)}
+    \PYGdefault{n}{Fmu} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{median}\PYGdefault{p}{(}\PYGdefault{n}{Fdata}\PYGdefault{p}{,} \PYGdefault{n}{axis}\PYGdefault{o}{=}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{)}
+
+    \PYGdefault{n}{Msigma} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{sqrt}\PYGdefault{p}{(}\PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{var}\PYGdefault{p}{(}\PYGdefault{n}{Mdata}\PYGdefault{p}{,} \PYGdefault{n}{axis}\PYGdefault{o}{=}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{))}
+    \PYGdefault{n}{Fsigma} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{sqrt}\PYGdefault{p}{(}\PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{var}\PYGdefault{p}{(}\PYGdefault{n}{Fdata}\PYGdefault{p}{,} \PYGdefault{n}{axis}\PYGdefault{o}{=}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{))}
+
+    \PYGdefault{n}{xWeight} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{arange}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{150}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{0.1}\PYGdefault{p}{)}
+    \PYGdefault{n}{Mweight} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{xWeight}\PYGdefault{p}{,} \PYGdefault{n}{Mmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],} \PYGdefault{n}{Msigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{])}
+    \PYGdefault{n}{Fweight} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{xWeight}\PYGdefault{p}{,} \PYGdefault{n}{Fmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],} \PYGdefault{n}{Fsigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{])}
+
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{plot}\PYGdefault{p}{(}\PYGdefault{n}{xWeight}\PYGdefault{p}{,} \PYGdefault{n}{Mweight}\PYGdefault{p}{,} \PYGdefault{n}{color}\PYGdefault{o}{=}\PYGdefault{l+s}{\PYGdefaultZsq{}red\PYGdefaultZsq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{plot}\PYGdefault{p}{(}\PYGdefault{n}{xWeight}\PYGdefault{p}{,} \PYGdefault{n}{Fweight}\PYGdefault{p}{,} \PYGdefault{n}{color}\PYGdefault{o}{=}\PYGdefault{l+s}{\PYGdefaultZsq{}blue\PYGdefaultZsq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{legend}\PYGdefault{p}{([}\PYGdefault{l+s}{\PYGdefaultZsq{}man\PYGdefaultZsq{}}\PYGdefault{p}{,} \PYGdefault{l+s}{\PYGdefaultZsq{}vrouw\PYGdefaultZsq{}}\PYGdefault{p}{])}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{xlabel}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZdq{}Weight in Kg\PYGdefaultZdq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{show}\PYGdefault{p}{()}
+
+    \PYGdefault{n}{xHeight} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{arange}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{140}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{210}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{0.1}\PYGdefault{p}{)}
+    \PYGdefault{n}{Mheight} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{xHeight}\PYGdefault{p}{,} \PYGdefault{n}{Mmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{],} \PYGdefault{n}{Msigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{])}
+    \PYGdefault{n}{Fheight} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{xHeight}\PYGdefault{p}{,} \PYGdefault{n}{Fmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{],} \PYGdefault{n}{Fsigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{1}\PYGdefault{p}{])}
+
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{plot}\PYGdefault{p}{(}\PYGdefault{n}{xHeight}\PYGdefault{p}{,} \PYGdefault{n}{Mheight}\PYGdefault{p}{,} \PYGdefault{n}{color}\PYGdefault{o}{=}\PYGdefault{l+s}{\PYGdefaultZsq{}red\PYGdefaultZsq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{plot}\PYGdefault{p}{(}\PYGdefault{n}{xHeight}\PYGdefault{p}{,} \PYGdefault{n}{Fheight}\PYGdefault{p}{,} \PYGdefault{n}{color}\PYGdefault{o}{=}\PYGdefault{l+s}{\PYGdefaultZsq{}blue\PYGdefaultZsq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{legend}\PYGdefault{p}{([}\PYGdefault{l+s}{\PYGdefaultZsq{}man\PYGdefaultZsq{}}\PYGdefault{p}{,} \PYGdefault{l+s}{\PYGdefaultZsq{}vrouw\PYGdefaultZsq{}}\PYGdefault{p}{])}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{xlabel}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZdq{}Height in cm\PYGdefaultZdq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{show}\PYGdefault{p}{()}
+
+    \PYGdefault{n}{xSize} \PYGdefault{o}{=} \PYGdefault{n}{numpy}\PYGdefault{o}{.}\PYGdefault{n}{arange}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{30}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{50}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{0.1}\PYGdefault{p}{)}
+    \PYGdefault{n}{Msize} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{xSize}\PYGdefault{p}{,} \PYGdefault{n}{Mmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{],} \PYGdefault{n}{Msigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{])}
+    \PYGdefault{n}{Fsize} \PYGdefault{o}{=} \PYGdefault{n}{normpdf}\PYGdefault{p}{(}\PYGdefault{n}{xSize}\PYGdefault{p}{,} \PYGdefault{n}{Fmu}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{],} \PYGdefault{n}{Fsigma}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{2}\PYGdefault{p}{])}
+
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{plot}\PYGdefault{p}{(}\PYGdefault{n}{xSize}\PYGdefault{p}{,} \PYGdefault{n}{Msize}\PYGdefault{p}{,} \PYGdefault{n}{color}\PYGdefault{o}{=}\PYGdefault{l+s}{\PYGdefaultZsq{}red\PYGdefaultZsq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{plot}\PYGdefault{p}{(}\PYGdefault{n}{xSize}\PYGdefault{p}{,} \PYGdefault{n}{Fsize}\PYGdefault{p}{,} \PYGdefault{n}{color}\PYGdefault{o}{=}\PYGdefault{l+s}{\PYGdefaultZsq{}blue\PYGdefaultZsq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{xlabel}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZdq{}Shoe size\PYGdefaultZdq{}}\PYGdefault{p}{)}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{legend}\PYGdefault{p}{([}\PYGdefault{l+s}{\PYGdefaultZsq{}man\PYGdefaultZsq{}}\PYGdefault{p}{,} \PYGdefault{l+s}{\PYGdefaultZsq{}vrouw\PYGdefaultZsq{}}\PYGdefault{p}{])}
+    \PYGdefault{n}{pylab}\PYGdefault{o}{.}\PYGdefault{n}{show}\PYGdefault{p}{()}
+
+    \PYGdefault{k}{print}\PYGdefault{p}{(}\PYGdefault{n}{male\PYGdefaultZus{}or\PYGdefaultZus{}female}\PYGdefault{p}{(}\PYGdefault{n}{Mmu}\PYGdefault{p}{,} \PYGdefault{n}{Fmu}\PYGdefault{p}{,} \PYGdefault{n}{Msigma}\PYGdefault{p}{,} \PYGdefault{n}{Fsigma}\PYGdefault{p}{,} \PYGdefault{p}{[}\PYGdefault{l+m+mi}{60}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{183}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{42}\PYGdefault{p}{]))}
+
+    \PYGdefault{n}{Mtest} \PYGdefault{o}{=} \PYGdefault{l+m+mi}{0}
+    \PYGdefault{n}{Ftest} \PYGdefault{o}{=} \PYGdefault{l+m+mi}{0}
+
+    \PYGdefault{k}{for} \PYGdefault{n}{m} \PYGdefault{o+ow}{in} \PYGdefault{n}{Mdata}\PYGdefault{p}{:}
+        \PYGdefault{k}{if}\PYGdefault{p}{(}\PYGdefault{n}{male\PYGdefaultZus{}or\PYGdefaultZus{}female}\PYGdefault{p}{(}\PYGdefault{n}{Mmu}\PYGdefault{p}{,} \PYGdefault{n}{Fmu}\PYGdefault{p}{,} \PYGdefault{n}{Msigma}\PYGdefault{p}{,} \PYGdefault{n}{Fsigma}\PYGdefault{p}{,} \PYGdefault{n}{m}\PYGdefault{p}{)} \PYGdefault{o}{==} \PYGdefault{l+s}{\PYGdefaultZsq{}M\PYGdefaultZsq{}}\PYGdefault{p}{):}
+            \PYGdefault{n}{Mtest} \PYGdefault{o}{=} \PYGdefault{n}{Mtest} \PYGdefault{o}{+} \PYGdefault{l+m+mi}{1}
+        \PYGdefault{k}{else}\PYGdefault{p}{:}
+            \PYGdefault{n}{Ftest} \PYGdefault{o}{=} \PYGdefault{n}{Ftest} \PYGdefault{o}{+} \PYGdefault{l+m+mi}{1}
+    \PYGdefault{k}{print}\PYGdefault{p}{(}\PYGdefault{n}{Mtest}\PYGdefault{p}{,} \PYGdefault{n}{Ftest}\PYGdefault{p}{)}
+
+    \PYGdefault{n}{Mtest} \PYGdefault{o}{=} \PYGdefault{l+m+mi}{0}
+    \PYGdefault{n}{Ftest} \PYGdefault{o}{=} \PYGdefault{l+m+mi}{0}
+
+    \PYGdefault{k}{for} \PYGdefault{n}{f} \PYGdefault{o+ow}{in} \PYGdefault{n}{Fdata}\PYGdefault{p}{:}
+        \PYGdefault{k}{if}\PYGdefault{p}{(}\PYGdefault{n}{male\PYGdefaultZus{}or\PYGdefaultZus{}female}\PYGdefault{p}{(}\PYGdefault{n}{Mmu}\PYGdefault{p}{,} \PYGdefault{n}{Fmu}\PYGdefault{p}{,} \PYGdefault{n}{Msigma}\PYGdefault{p}{,} \PYGdefault{n}{Fsigma}\PYGdefault{p}{,} \PYGdefault{n}{f}\PYGdefault{p}{)} \PYGdefault{o}{==} \PYGdefault{l+s}{\PYGdefaultZsq{}F\PYGdefaultZsq{}}\PYGdefault{p}{):}
+            \PYGdefault{n}{Ftest} \PYGdefault{o}{=} \PYGdefault{n}{Ftest} \PYGdefault{o}{+} \PYGdefault{l+m+mi}{1}
+        \PYGdefault{k}{else}\PYGdefault{p}{:}
+            \PYGdefault{n}{Mtest} \PYGdefault{o}{=} \PYGdefault{n}{Mtest} \PYGdefault{o}{+} \PYGdefault{l+m+mi}{1}
+    \PYGdefault{k}{print}\PYGdefault{p}{(}\PYGdefault{n}{Mtest}\PYGdefault{p}{,} \PYGdefault{n}{Ftest}\PYGdefault{p}{)}
+
+\PYGdefault{k}{if} \PYGdefault{n}{\PYGdefaultZus{}\PYGdefaultZus{}name\PYGdefaultZus{}\PYGdefaultZus{}} \PYGdefault{o}{==} \PYGdefault{l+s}{\PYGdefaultZsq{}\PYGdefaultZus{}\PYGdefaultZus{}main\PYGdefaultZus{}\PYGdefaultZus{}\PYGdefaultZsq{}}\PYGdefault{p}{:}
+    \PYGdefault{n}{main}\PYGdefault{p}{()}
+\end{Verbatim}

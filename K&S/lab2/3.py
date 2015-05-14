@@ -8,7 +8,6 @@ import random
 def sne(x):
     return numpy.power(numpy.e, -0.5 * x * x) / numpy.sqrt(2 * numpy.pi)
 
-
 def main():
     # 1000 spaced numbers
     x = numpy.arange(-5.0, 5.0, 0.01)

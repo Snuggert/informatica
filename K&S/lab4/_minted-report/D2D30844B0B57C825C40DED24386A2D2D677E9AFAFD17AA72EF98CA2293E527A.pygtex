@@ -1,0 +1,35 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{k+kn}{import} \PYGdefault{n+nn}{pylab} \PYGdefault{k+kn}{as} \PYGdefault{n+nn}{plt}
+
+\PYGdefault{n}{mu} \PYGdefault{o}{=} \PYGdefault{p}{[[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],}
+      \PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],}
+      \PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{],}
+      \PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{]]}
+\PYGdefault{n}{Sigma} \PYGdefault{o}{=} \PYGdefault{p}{[[}\PYGdefault{l+m+mf}{3.01602775}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{1.02746769}\PYGdefault{p}{,} \PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{3.60224613}\PYGdefault{p}{,} \PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{2.08792829}\PYGdefault{p}{],}
+         \PYGdefault{p}{[}\PYGdefault{l+m+mf}{1.02746769}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{5.65146472}\PYGdefault{p}{,} \PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{3.98616664}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{0.48723704}\PYGdefault{p}{],}
+         \PYGdefault{p}{[}\PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{3.60224613}\PYGdefault{p}{,} \PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{3.98616664}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{13.04508284}\PYGdefault{p}{,} \PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{1.59255406}\PYGdefault{p}{],}
+         \PYGdefault{p}{[}\PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{2.08792829}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{0.48723704}\PYGdefault{p}{,} \PYGdefault{o}{\PYGdefaultZhy{}}\PYGdefault{l+m+mf}{1.59255406}\PYGdefault{p}{,} \PYGdefault{l+m+mf}{8.28742469}\PYGdefault{p}{]]}
+
+\PYGdefault{n}{d}\PYGdefault{p}{,} \PYGdefault{n}{U} \PYGdefault{o}{=} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{eig}\PYGdefault{p}{(}\PYGdefault{n}{Sigma}\PYGdefault{p}{)}  \PYGdefault{c}{\PYGdefaultZsh{} Sigma = U L Ut}
+\PYGdefault{n}{L} \PYGdefault{o}{=} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{diagflat}\PYGdefault{p}{(}\PYGdefault{n}{d}\PYGdefault{p}{)}
+\PYGdefault{n}{A} \PYGdefault{o}{=} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{dot}\PYGdefault{p}{(}\PYGdefault{n}{U}\PYGdefault{p}{,} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{sqrt}\PYGdefault{p}{(}\PYGdefault{n}{L}\PYGdefault{p}{))}  \PYGdefault{c}{\PYGdefaultZsh{} required transform matrix}
+
+\PYGdefault{n}{X} \PYGdefault{o}{=} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{randn}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{4}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{1000}\PYGdefault{p}{)}  \PYGdefault{c}{\PYGdefaultZsh{} 4x1000 matrix with each element \PYGdefaultZti{} N(0,1)}
+\PYGdefault{n}{Y} \PYGdefault{o}{=} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{dot}\PYGdefault{p}{(}\PYGdefault{n}{A}\PYGdefault{p}{,} \PYGdefault{n}{X}\PYGdefault{p}{)} \PYGdefault{o}{+} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{tile}\PYGdefault{p}{(}\PYGdefault{n}{mu}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{1000}\PYGdefault{p}{)}  \PYGdefault{c}{\PYGdefaultZsh{} 4x1000 each column vector \PYGdefaultZti{}N(mu,Sigma)}
+\PYGdefault{n}{f}\PYGdefault{p}{,} \PYGdefault{n}{axarr} \PYGdefault{o}{=} \PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{subplots}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{4}\PYGdefault{p}{,} \PYGdefault{l+m+mi}{4}\PYGdefault{p}{,} \PYGdefault{n}{sharex}\PYGdefault{o}{=}\PYGdefault{n+nb+bp}{True}\PYGdefault{p}{,} \PYGdefault{n}{sharey}\PYGdefault{o}{=}\PYGdefault{n+nb+bp}{True}\PYGdefault{p}{)}
+\PYGdefault{k}{for} \PYGdefault{n}{i} \PYGdefault{o+ow}{in} \PYGdefault{n+nb}{range}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{,} \PYGdefault{n+nb}{len}\PYGdefault{p}{(}\PYGdefault{n}{Y}\PYGdefault{p}{)):}
+    \PYGdefault{k}{for} \PYGdefault{n}{j} \PYGdefault{o+ow}{in} \PYGdefault{n+nb}{range}\PYGdefault{p}{(}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{,} \PYGdefault{n+nb}{len}\PYGdefault{p}{(}\PYGdefault{n}{Y}\PYGdefault{p}{)):}
+        \PYGdefault{k}{if}\PYGdefault{p}{(}\PYGdefault{n}{i} \PYGdefault{o}{==} \PYGdefault{n}{j}\PYGdefault{p}{):}
+            \PYGdefault{n}{axarr}\PYGdefault{p}{[}\PYGdefault{n}{i}\PYGdefault{p}{][}\PYGdefault{n}{j}\PYGdefault{p}{]}\PYGdefault{o}{.}\PYGdefault{n}{set\PYGdefaultZus{}title}\PYGdefault{p}{(}\PYGdefault{n+nb}{str}\PYGdefault{p}{(}\PYGdefault{n}{i}\PYGdefault{p}{)} \PYGdefault{o}{+} \PYGdefault{l+s}{\PYGdefaultZsq{},\PYGdefaultZsq{}} \PYGdefault{o}{+} \PYGdefault{n+nb}{str}\PYGdefault{p}{(}\PYGdefault{n}{j}\PYGdefault{p}{))}
+            \PYGdefault{c}{\PYGdefaultZsh{} f.delaxes(axarr[i][j])}
+            \PYGdefault{n}{axarr}\PYGdefault{p}{[}\PYGdefault{n}{i}\PYGdefault{p}{][}\PYGdefault{n}{j}\PYGdefault{p}{]}\PYGdefault{o}{.}\PYGdefault{n}{axis}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZsq{}off\PYGdefaultZsq{}}\PYGdefault{p}{)}
+            \PYGdefault{k}{continue}
+        \PYGdefault{n}{axarr}\PYGdefault{p}{[}\PYGdefault{n}{i}\PYGdefault{p}{][}\PYGdefault{n}{j}\PYGdefault{p}{]}\PYGdefault{o}{.}\PYGdefault{n}{plot}\PYGdefault{p}{(}\PYGdefault{n}{Y}\PYGdefault{p}{[}\PYGdefault{n}{i}\PYGdefault{p}{],} \PYGdefault{n}{Y}\PYGdefault{p}{[}\PYGdefault{n}{j}\PYGdefault{p}{],} \PYGdefault{l+s}{\PYGdefaultZsq{}xg\PYGdefaultZsq{}}\PYGdefault{p}{)}  \PYGdefault{c}{\PYGdefaultZsh{} scatter plot of N(mu,Sigma) distribution}
+        \PYGdefault{n}{axarr}\PYGdefault{p}{[}\PYGdefault{n}{i}\PYGdefault{p}{][}\PYGdefault{n}{j}\PYGdefault{p}{]}\PYGdefault{o}{.}\PYGdefault{n}{set\PYGdefaultZus{}title}\PYGdefault{p}{(}\PYGdefault{n+nb}{str}\PYGdefault{p}{(}\PYGdefault{n}{i}\PYGdefault{p}{)} \PYGdefault{o}{+} \PYGdefault{l+s}{\PYGdefaultZsq{},\PYGdefaultZsq{}} \PYGdefault{o}{+} \PYGdefault{n+nb}{str}\PYGdefault{p}{(}\PYGdefault{n}{j}\PYGdefault{p}{))}
+
+\PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{setp}\PYGdefault{p}{([}\PYGdefault{n}{a}\PYGdefault{o}{.}\PYGdefault{n}{get\PYGdefaultZus{}xticklabels}\PYGdefault{p}{()} \PYGdefault{k}{for} \PYGdefault{n}{a} \PYGdefault{o+ow}{in} \PYGdefault{n}{axarr}\PYGdefault{p}{[}\PYGdefault{l+m+mi}{0}\PYGdefault{p}{,} \PYGdefault{p}{:]],} \PYGdefault{n}{visible}\PYGdefault{o}{=}\PYGdefault{n+nb+bp}{False}\PYGdefault{p}{)}
+\PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{setp}\PYGdefault{p}{([}\PYGdefault{n}{a}\PYGdefault{o}{.}\PYGdefault{n}{get\PYGdefaultZus{}yticklabels}\PYGdefault{p}{()} \PYGdefault{k}{for} \PYGdefault{n}{a} \PYGdefault{o+ow}{in} \PYGdefault{n}{axarr}\PYGdefault{p}{[:,} \PYGdefault{l+m+mi}{1}\PYGdefault{p}{]],} \PYGdefault{n}{visible}\PYGdefault{o}{=}\PYGdefault{n+nb+bp}{False}\PYGdefault{p}{)}
+\PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{tight\PYGdefaultZus{}layout}\PYGdefault{p}{()}
+\PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{savefig}\PYGdefault{p}{(}\PYGdefault{l+s}{\PYGdefaultZsq{}scatter.pdf\PYGdefaultZsq{}}\PYGdefault{p}{)}
+\PYGdefault{n}{plt}\PYGdefault{o}{.}\PYGdefault{n}{clf}\PYGdefault{p}{()}
+\end{Verbatim}

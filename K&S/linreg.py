@@ -11,14 +11,17 @@ X = np.vstack((np.ones(x.shape), x)).T
 
 
 def j(th):
+    print("j", th)
     return np.linalg.norm(y - np.dot(X, th)) ** 2
 
 
 def jac(th):
-    return 2 * (np.dot(np.dot(X.T, X), th) - np.dot(X.T, y))
+    jacreturn = 2 * (np.dot(np.dot(X.T, X), th) - np.dot(X.T, y))
+    print("jac", jacreturn)
+    return jacreturn
 
 res = minimize(j, (0, 0), jac=jac, method='CG')
-print res
+print(res)
 
 eth1, eth2 = res.x
 plt.plot(x, y, 'xb')

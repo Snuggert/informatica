@@ -2,7 +2,6 @@ import re
 import numpy
 import pylab
 
-
 def male_or_female(Mmu, Fmu, Msigma, Fsigma, test_data):
     Mpost = normpdf(test_data[0], Mmu[0], Msigma[0]) * \
             normpdf(test_data[1], Mmu[1], Msigma[1]) * \
@@ -17,6 +16,7 @@ def male_or_female(Mmu, Fmu, Msigma, Fsigma, test_data):
         return 'F'
 
 
+# Normal probability density function
 def normpdf(x, mu, sigma):
     u = (x - mu) / abs(sigma)
     y = (1 / (numpy.sqrt(2 * numpy.pi) * abs(sigma))) * numpy.exp(-u * u / 2)
@@ -40,7 +40,7 @@ def main():
                               float(searchResult.group(3)),
                               float(searchResult.group(4))])
         else:
-            print 'line did not pass regex'
+            print('line did not pass regex')
 
     Mdata = numpy.array(Mdata)
     Fdata = numpy.array(Fdata)
@@ -58,6 +58,7 @@ def main():
     pylab.plot(xWeight, Mweight, color='red')
     pylab.plot(xWeight, Fweight, color='blue')
     pylab.legend(['man', 'vrouw'])
+    pylab.xlabel("Weight in Kg")
     pylab.show()
 
     xHeight = numpy.arange(140, 210, 0.1)
@@ -67,6 +68,7 @@ def main():
     pylab.plot(xHeight, Mheight, color='red')
     pylab.plot(xHeight, Fheight, color='blue')
     pylab.legend(['man', 'vrouw'])
+    pylab.xlabel("Height in cm")
     pylab.show()
 
     xSize = numpy.arange(30, 50, 0.1)
@@ -75,10 +77,31 @@ def main():
 
     pylab.plot(xSize, Msize, color='red')
     pylab.plot(xSize, Fsize, color='blue')
+    pylab.xlabel("Shoe size")
     pylab.legend(['man', 'vrouw'])
     pylab.show()
 
-    print male_or_female(Mmu, Fmu, Msigma, Fsigma, [60, 183, 42])
+    print(male_or_female(Mmu, Fmu, Msigma, Fsigma, [60, 183, 42]))
+
+    Mtest = 0
+    Ftest = 0
+
+    for m in Mdata:
+        if(male_or_female(Mmu, Fmu, Msigma, Fsigma, m) == 'M'):
+            Mtest = Mtest + 1
+        else:
+            Ftest = Ftest + 1
+    print(Mtest, Ftest)
+
+    Mtest = 0
+    Ftest = 0
+
+    for f in Fdata:
+        if(male_or_female(Mmu, Fmu, Msigma, Fsigma, f) == 'F'):
+            Ftest = Ftest + 1
+        else:
+            Mtest = Mtest + 1
+    print(Mtest, Ftest)
 
 if __name__ == '__main__':
     main()
